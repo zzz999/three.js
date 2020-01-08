@@ -59,26 +59,26 @@ export class Object3D extends EventDispatcher {
 	/**
 	 * Object's local position.
 	 */
-	position: Vector3;
+	readonly position: Vector3;
 
 	/**
 	 * Object's local rotation (Euler angles), in radians.
 	 */
-	rotation: Euler;
+	readonly rotation: Euler;
 
 	/**
 	 * Global rotation.
 	 */
-	quaternion: Quaternion;
+	readonly quaternion: Quaternion;
 
 	/**
 	 * Object's local scale.
 	 */
-	scale: Vector3;
+	readonly scale: Vector3;
 
-	modelViewMatrix: Matrix4;
+	readonly modelViewMatrix: Matrix4;
 
-	normalMatrix: Matrix3;
+	readonly normalMatrix: Matrix3;
 
 	/**
 	 * Local transform.
@@ -346,6 +346,6 @@ export class Object3D extends EventDispatcher {
 	 * @param object
 	 * @param recursive
 	 */
-	copy( source: Object3D, recursive?: boolean ): this;
+	copy( source: this, recursive?: boolean ): this;
 
 }

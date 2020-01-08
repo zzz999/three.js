@@ -92,7 +92,7 @@
 			// RENDERER
 
 			renderer = new THREE.WebGLRenderer();
-			renderer.gammaOutput = true;
+			renderer.outputEncoding = THREE.sRGBEncoding;
 			renderer.setPixelRatio( window.devicePixelRatio );
 			renderer.setSize( window.innerWidth, window.innerHeight );
 
@@ -157,7 +157,7 @@
 			var hatchingMaterial = createShaderMaterial( ToonShaderHatching, light, ambientLight );
 			var dottedMaterial = createShaderMaterial( ToonShaderDotted, light, ambientLight );
 
-			var texture = new THREE.TextureLoader().load( "textures/UV_Grid_Sm.jpg" );
+			var texture = new THREE.TextureLoader().load( "textures/uv_grid_opengl.jpg" );
 			texture.wrapS = THREE.RepeatWrapping;
 			texture.wrapT = THREE.RepeatWrapping;
 
