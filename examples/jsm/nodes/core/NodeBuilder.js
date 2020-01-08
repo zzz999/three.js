@@ -227,7 +227,7 @@ NodeBuilder.prototype = {
 
 			this.addVaryCode( 'varying vec3 vWNormal;' );
 
-			this.addVertexFinalCode( 'vWNormal = ( modelMatrix * vec4( objectNormal, 0.0 ) ).xyz;' );
+			this.addVertexFinalCode( 'vWNormal = inverseTransformDirection( transformedNormal, viewMatrix ).xyz;' );
 
 		}
 
@@ -446,6 +446,12 @@ NodeBuilder.prototype = {
 	define: function ( name, value ) {
 
 		this.defines[ name ] = value === undefined ? 1 : value;
+
+	},
+
+	require: function ( name ) {
+
+		this.requires[ name ] = true;
 
 	},
 
@@ -943,9 +949,7 @@ NodeBuilder.prototype = {
 
 	},
 
-	getTextureEncodingFromMap: function ( map, gammaOverrideLinear ) {
-
-		gammaOverrideLinear = gammaOverrideLinear !== undefined ? gammaOverrideLinear : this.context.gamma && ( this.renderer ? this.renderer.gammaInput : false );
+	getTextureEncodingFromMap: function ( map ) {
 
 		var encoding;
 
@@ -964,8 +968,7 @@ NodeBuilder.prototype = {
 
 		}
 
-		// add backwards compatibility for WebGLRenderer.gammaInput/gammaOutput parameter, should probably be removed at some point.
-		if ( encoding === LinearEncoding && gammaOverrideLinear ) {
+		if ( encoding === LinearEncoding && this.context.gamma ) {
 
 			encoding = GammaEncoding;
 
